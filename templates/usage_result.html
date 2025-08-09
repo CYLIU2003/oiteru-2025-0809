@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>利用状況結果</h1>
+  <table>
+    <tr><th>カードID</th><td>{{ cardid }}</td></tr>
+    <tr><th>残り利用回数</th><td>{{ stock }}</td></tr>
+    <tr><th>利用状況</th><td>
+      {% if allow == 1 %}利用可能{% else %}利用停止中{% endif %}
+    </td></tr>
+    <tr><th>登録日</th><td>{{ entry_at }}</td></tr>
+    <tr><th>累計利用回数</th><td>{{ total }}</td></tr>
+  </table>
+  <p><a href="{{ url_for('usage') }}">← 戻る</a></p>
+{% endblock %}

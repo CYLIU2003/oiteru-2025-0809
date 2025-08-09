@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card-action">
+  <h2>利用状況の確認</h2>
+  <p>カードリーダーに学生証を置いて、以下のボタンを押してください。</p>
+  {% if not reader_connected %}
+    <div style="color: red; margin-bottom: 1em;">ICカードリーダーが接続されていません。</div>
+    <form method="post">
+      <button type="submit" name="retry" value="1" class="btn">リーダー再接続を試す</button>
+    </form>
+  {% else %}
+    <form method="post">
+      <button type="submit" class="btn">利用状況を確認</button>
+    </form>
+  {% endif %}
+  <a href="{{ url_for('index') }}" class="btn btn-secondary">ホームに戻る</a>
+</div>
+{% endblock %}

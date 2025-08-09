@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="admin-section">
+  <h2>利用状況の可視化</h2>
+  <div class="chart-container" style="margin-bottom: 40px;">
+    <h3>時間別利用回数 (直近10回分)</h3>
+    <canvas id="hourlyChart"></canvas>
+  </div>
+  <div class="chart-container" style="margin-bottom: 40px;">
+    <h3>日別利用回数</h3>
+    <canvas id="dailyChart"></canvas>
+  </div>
+  <div class="chart-container" style="margin-bottom: 40px;">
+    <h3>曜日別利用回数</h3>
+    <canvas id="weeklyChart"></canvas>
+  </div>
+  <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">管理者メニューに戻る</a>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // 時間別グラフ
+    const hourlyCtx = document.getElementById('hourlyChart').getContext('2d');
+    new Chart(hourlyCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ chart_data.hourly_labels | tojson }},
+            datasets: [{
+                label: '利用回数',
+                data: {{ chart_data.hourly_data | tojson }},
+                backgroundColor: 'rgba(38, 168, 223, 0.7)',
+                borderColor: 'rgba(38, 168, 223, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+    // 日別グラフ
+    const dailyCtx = document.getElementById('dailyChart').getContext('2d');
+    new Chart(dailyCtx, {
+        type: 'line',
+        data: {
+            labels: {{ chart_data.daily_labels | tojson }},
+            datasets: [{
+                label: '利用回数',
+                data: {{ chart_data.daily_data | tojson }},
+                fill: false,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+    // 曜日別グラフ
+    const weeklyCtx = document.getElementById('weeklyChart').getContext('2d');
+    new Chart(weeklyCtx, {
+        type: 'doughnut',
+        data: {
+            labels: {{ chart_data.weekly_labels | tojson }},
+            datasets: [{
+                label: '利用回数',
+                data: {{ chart_data.weekly_data | tojson }},
+                backgroundColor: [
+                    '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#C9CBCF'
+                ]
+            }]
+        }
+    });
+});
+</script>
+{% endblock %}

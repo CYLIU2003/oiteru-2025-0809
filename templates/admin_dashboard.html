@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="admin-dashboard">
+  <h2>管理者ダッシュボード</h2>
+  <div class="stats">
+    <div><strong>利用者数:</strong> {{ users|length }}</div>
+    <div><strong>子機数:</strong> {{ units|length }}</div>
+    <div><strong>履歴件数:</strong> {{ history|length }}</div>
+  </div>
+  <div class="admin-menu">
+    <a href="{{ url_for('admin_users') }}" class="btn">利用者一覧</a>
+    <a href="{{ url_for('admin_units') }}" class="btn">子機一覧</a>
+    <a href="{{ url_for('admin_history') }}" class="btn">利用履歴</a>
+    <a href="{{ url_for('admin_visuals') }}" class="btn">利用状況の可視化</a>
+    <a href="{{ url_for('admin_csv_export') }}" class="btn">利用履歴CSVダウンロード</a>
+    <a href="{{ url_for('admin_log_export') }}" class="btn">全ログダウンロード</a>
+    <a href="{{ url_for('admin_backup_download') }}" class="btn">データバックアップ</a>
+    <a href="{{ url_for('admin_restore') }}" class="btn">データ復元</a>
+    <a href="{{ url_for('admin_login') }}?logout=1" class="btn btn-secondary">ログアウト</a>
+  </div>
+</div>
+{% endblock %}

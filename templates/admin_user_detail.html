@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="admin-section">
+  <h2>利用者詳細 (ID: {{ user[0] }})</h2>
+  <form method="post">
+    <p>
+      <label>カードID:<br>
+      <input type="text" name="cardid" value="{{ user[1] }}"></label>
+    </p>
+    <p>
+      <label>許可 (1=可/0=不可):<br>
+      <input type="text" name="allow" value="{{ user[2] }}"></label>
+    </p>
+    <p>
+      <label>残り利用回数:<br>
+      <input type="text" name="stock" value="{{ user[4] }}"></label>
+    </p>
+    <p>登録日: {{ user[3] }}</p>
+    <p>累計利用回数: {{ user[6] }}</p>
+    <button type="submit" class="btn">更新する</button>
+    <a href="{{ url_for('admin_users') }}" class="btn btn-secondary">一覧に戻る</a>
+  </form>
+  <div class="note">
+    ※カードIDを空欄にして更新すると、このユーザーを削除します。
+  </div>
+</div>
+{% endblock %}

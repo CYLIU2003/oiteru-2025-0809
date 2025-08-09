@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="admin-section">
+  <h2>データ復元</h2>
+  <p>バックアップExcelファイル（<code>backup.xlsx</code>）を選択してアップロードしてください。</p>
+  <form method="post" enctype="multipart/form-data">
+    <input type="file" name="backup_file" accept=".xlsx" required>
+    <button type="submit" class="btn">アップロードして復元</button>
+  </form>
+  <p><a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">キャンセル</a></p>
+</div>
+{% endblock %}

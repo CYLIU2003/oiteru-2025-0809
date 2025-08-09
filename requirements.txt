@@ -1,0 +1,7 @@
+pandas
+openpyxl
+flask
+nfcpy
+RPi.GPIO
+Adafruit-PCA9685
+pyserial

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="admin-section">
+  <h2>子機一覧</h2>
+  <table class="data-table">
+    <tr>
+      <th>ID</th><th>名前</th><th>パスワード</th><th>在庫数</th><th>接続状態</th><th>利用可</th><th>詳細</th>
+    </tr>
+    {% for unit in units %}
+    <tr>
+      <td>{{ unit[0] }}</td>
+      <td>{{ unit[1] }}</td>
+      <td>{{ unit[2] }}</td>
+      <td>{{ unit[3] }}</td>
+      <td>
+        {% if unit[4] == 1 %}
+          <span style="color: green;">● オンライン</span>
+        {% else %}
+          <span style="color: red;">● オフライン</span>
+        {% endif %}
+      </td>
+      <td>{{ unit[5] }}</td>
+      <td><a href="{{ url_for('admin_unit_detail', uid=unit[0]) }}" class="btn btn-secondary">開く</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+  <p>
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">管理者メニューに戻る</a>
+  </p>
+</div>
+{% endblock %}

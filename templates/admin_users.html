@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="admin-section">
+  <h2>利用者一覧</h2>
+  <table class="data-table">
+    <tr>
+      <th>ID</th><th>カードID</th><th>許可</th><th>登録日</th><th>残り回数</th><th>累計利用</th><th>詳細</th>
+    </tr>
+    {% for u in users %}
+    <tr>
+      <td>{{ u[0] }}</td>
+      <td>{{ u[1] }}</td>
+      <td>{{ u[2] }}</td>
+      <td>{{ u[3] }}</td>
+      <td>{{ u[4] }}</td>
+      <td>{{ u[6] }}</td>
+      <td><a href="{{ url_for('admin_user_detail', uid=u[0]) }}">開く</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+  <p><a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">管理者メニューに戻る</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="admin-section">
+  <h2>子機編集 (ID: {{ unit[0] }})</h2>
+  <form method="post">
+    <p>
+      <label>名前:<br>
+      <input type="text" name="name" value="{{ unit[1] }}" required>
+      </label>
+    </p>
+    <p>パスワード: {{ unit[2] }}</p>
+    <p>
+      <label>残り用品在庫:<br>
+      <input type="text" name="stock" value="{{ unit[3] }}"></label>
+    </p>
+    <p>接続状態: {{ unit[4] }}</p>
+    <p>
+      <label>利用可能 (1=可/0=不可):<br>
+      <input type="text" name="available" value="{{ unit[5] }}"></label>
+    </p>
+    <button type="submit" class="btn">更新する</button>
+    <a href="{{ url_for('admin_units') }}" class="btn btn-secondary">一覧に戻る</a>
+  </form>
+
+  <hr style="margin: 30px 0;">
+
+  <div class="logs-section">
+    <h3>子機ログ</h3>
+    {% if logs %}
+      <ul class="history-list">
+        {% for log in logs %}
+          <li>{{ log.txt }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>この子機からのログはまだ記録されていません。</p>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

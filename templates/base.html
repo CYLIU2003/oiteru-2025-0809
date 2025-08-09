@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>オイテルシステム | 都市大 x 東急</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style20250506.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <!-- Logo and title -->
+    <img src="{{ url_for('static', filename='img/logo20250506.png') }}" alt="東京都市大学 美しい時代へ 東急グループ">
+    <h1>オイテル登録システム</h1>
+    <div id="reader-status">
+        <span id="reader-light"></span>
+        <span id="reader-text"></span>
+    </div>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-messages">
+        {% for category, message in messages %}
+          <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>© 2025 Tokyo City University / Tokyu Group</p>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const statusLight = document.getElementById("reader-light");
+        const statusText = document.getElementById("reader-text");
+
+        function checkReaderStatus() {
+            fetch("/api/reader_status")
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(errorData => {
+                            throw new Error(errorData.error || `サーバーエラー (HTTP ${response.status})`);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.connected) {
+                        statusLight.style.backgroundColor = "#4CAF50"; // Green
+                        statusText.textContent = "ICカードリーダー接続";
+                    } else {
+                        statusLight.style.backgroundColor = "#F44336"; // Red
+                        statusText.textContent = data.error || "ICカードリーダー未接続";
+                    }
+                })
+                .catch(error => {
+                    console.error("リーダー状態の確認中にエラー:", error);
+                    statusLight.style.backgroundColor = "#F44336"; // Red
+                    statusText.textContent = error.message;
+                });
+        }
+
+        // Check status immediately and then every 5 seconds
+        checkReaderStatus();
+        setInterval(checkReaderStatus, 5000);
+    });
+  </script>
+</body>
+</html>

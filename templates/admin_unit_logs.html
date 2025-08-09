@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="admin-section">
+  <h2>子機ログ: {{ unit_name }}</h2>
+  
+  {% if logs %}
+    <ul class="history-list">
+      {% for log in logs %}
+        <li>{{ log.txt }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>この子機からのログはまだ記録されていません。</p>
+  {% endif %}
+
+  <p style="margin-top: 20px;">
+    <a href="{{ url_for('admin_units') }}" class="btn btn-secondary">子機一覧に戻る</a>
+  </p>
+</div>
+{% endblock %}

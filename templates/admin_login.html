@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="admin-login">
+  <h2>管理者ログイン</h2>
+  <form method="post">
+    <label for="password">パスワード:</label>
+    <input type="password" name="password" id="password" required>
+    <button type="submit" class="btn">ログイン</button>
+  </form>
+  <a href="{{ url_for('index') }}" class="btn btn-secondary">ホームに戻る</a>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="admin-section">
+  <h2>新規子機の登録</h2>
+  <form method="post">
+    <p><label>子機名:<br><input type="text" name="name" required></label></p>
+    <p><label>パスワード:<br><input type="text" name="password" required></label></p>
+    <p><label>初期在庫数:<br><input type="number" name="stock" required></label></p>
+    <p><label>利用可能 (1=可/0=不可):<br><input type="number" name="available" required></label></p>
+    <button type="submit" class="btn">登録</button>
+    <a href="{{ url_for('admin_units') }}" class="btn btn-secondary">キャンセル</a>
+  </form>
+</div>
+{% endblock %}
